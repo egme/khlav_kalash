@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class OrdersControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,8 +16,21 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create order" do
-    assert_difference('Order.count') do
-      post orders_url, params: { order: { amount_cents: @order.amount_cents, country: @order.country, email_address: @order.email_address, first_name: @order.first_name, last_name: @order.last_name, number: @order.number, permalink: @order.permalink } }
+    assert_difference("Order.count") do
+      post(
+        orders_url,
+        params: {
+          order: {
+            amount_cents: @order.amount_cents,
+            country: @order.country,
+            email_address: @order.email_address,
+            first_name: @order.first_name,
+            last_name: @order.last_name,
+            number: @order.number,
+            permalink: @order.permalink
+          }
+        }
+      )
     end
 
     assert_redirected_to order_url(Order.last)
@@ -34,12 +47,25 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update order" do
-    patch order_url(@order), params: { order: { amount_cents: @order.amount_cents, country: @order.country, email_address: @order.email_address, first_name: @order.first_name, last_name: @order.last_name, number: @order.number, permalink: @order.permalink } }
+    patch(
+      order_url(@order),
+      params: {
+        order: {
+          amount_cents: @order.amount_cents,
+          country: @order.country,
+          email_address: @order.email_address,
+          first_name: @order.first_name,
+          last_name: @order.last_name,
+          number: @order.number,
+          permalink: @order.permalink
+        }
+      }
+    )
     assert_redirected_to order_url(@order)
   end
 
   test "should destroy order" do
-    assert_difference('Order.count', -1) do
+    assert_difference("Order.count", -1) do
       delete order_url(@order)
     end
 
