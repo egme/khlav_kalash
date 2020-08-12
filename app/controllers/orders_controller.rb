@@ -26,12 +26,12 @@ class OrdersController < ApplicationController
 
   # POST /orders
   # POST /orders.json
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @order = Order.new(order_params)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to order_permalink_url(@order.permalink), notice: 'Order was successfully created.' }
+        format.html { redirect_to order_permalink_url(@order.permalink), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to @order, notice: "Order was successfully updated." }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -59,23 +59,32 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def permalink
-    @order = Order.find_by_permalink params[:permalink]
+    @order = Order.find_by(permalink: params[:permalink])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:amount_cents, :first_name, :last_name, :street_line_1, :street_line_2, :postal_code, :city, :region, :country, :email_address, :number, :permalink)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params
+      .require(:order)
+      .permit(
+        :number, :permalink,
+        :amount_cents,
+        :email_address,
+        :first_name, :last_name,
+        :street_line_1, :street_line_2, :postal_code, :city, :region, :country
+      )
+  end
 end
