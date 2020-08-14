@@ -2,8 +2,8 @@
   - if order.errors.any?
     #error_explanation
       %h2
-        = pluralize(order.errors.count, "error")
-        prohibited this order from being saved:
+        Uh! Oh! Order cannot be saved due to the following
+        = "error".pluralize(order.errors.count) + ":"
       %ul
         - order.errors.full_messages.each do |message|
           %li= message
@@ -21,7 +21,7 @@
     = form.label :street_line_2
     = form.text_field :street_line_2
   .field
-    = form.label :postal_ccode
+    = form.label :postal_code
     = form.text_field :postal_code
   .field
     = form.label :city
@@ -37,4 +37,4 @@
     = form.text_field :email_address
 
   .actions
-    = form.submit "Pay #{@order.price.format}"
+    = form.submit @button_text

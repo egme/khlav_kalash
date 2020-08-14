@@ -1,0 +1,41 @@
+- content_for :head do
+  :javascript
+    window.PAYMENT_CONFIG = {
+      STRIPE_PUBLIC_KEY: "#{ENV.fetch("STRIPE_PUBLIC_KEY")}",
+      INTENT_CLIENT_SECRET: "#{@intent.client_secret}",
+      PERMALINK: "#{@order.permalink}",
+      BILLING_DETAILS_HASH: #{@order.billing_details_hash.to_json.html_safe}
+    };
+  %script{:type => "text/javascript", :src  => "https://js.stripe.com/v3/"}
+  = javascript_include_tag "payment"
+
+%h1 Payment
+%p#notice= notice
+%p
+  %strong Price:
+  = @order.price.format
+%p
+  %strong First name:
+  = @order.first_name
+%p
+  %strong Last name:
+  = @order.last_name
+%p
+  %strong Country:
+  = @order.country
+%p
+  %strong Email address:
+  = @order.email_address
+%p
+  %strong Number:
+  = @order.number
+%p
+  %strong Permalink:
+  = @order.permalink
+
+.payment
+  #card-element
+  #card-errors
+  %button#pay
+    Pay
+    = @order.price.format
