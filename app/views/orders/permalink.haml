@@ -4,7 +4,10 @@
   = @order.number
 %p
   %strong Amount paid:
-  = Money.new(@order.amount_cents, Order::CURRENCY).format
+  = @order.price.format
+%p
+  %strong Paid at:
+  = @order.paid_at.utc.iso8601
 %p
   %strong First name:
   = @order.first_name

@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load unless Rails.env.production?
+
 module KhlavKalash
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -15,5 +17,7 @@ module KhlavKalash
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    ActiveSupport::JSON::Encoding.time_precision = 0
   end
 end
