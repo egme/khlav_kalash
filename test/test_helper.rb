@@ -12,6 +12,11 @@ module ActiveSupport
     include FactoryBot::Syntax::Methods
 
     before do
+      WebMock.disable_net_connect!(
+        allow_localhost: true,
+        allow: Webdrivers::Common.subclasses.map(&:base_url)
+      )
+
       StripeServer.setup
     end
   end
