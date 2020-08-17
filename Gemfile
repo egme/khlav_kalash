@@ -7,6 +7,8 @@ gem "country_select"
 
 gem "haml-rails", "~> 2.0"
 
+gem "material_icons"
+
 gem "money"
 
 gem "stripe"

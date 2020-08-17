@@ -1,13 +1,24 @@
 %h1
   Editing Order
   = @order.number
-%p
-  %strong Permalink:
-  = link_to @order.permalink, order_permalink_url(@order.permalink)
-%p
-  %strong Paid at:
-  = @order.paid_at.try(:utc).try(:iso8601)
+
+- if notice
+  .alert.alert-success.my-3
+    = notice
+
+.card.mb-3
+  .card-header
+    Order Info
+  .card-body
+    %p
+      %strong Permalink:
+      = link_to @order.permalink, order_permalink_url(@order.permalink)
+    %p
+      %strong Paid at:
+      = @order.paid_at.try(:utc).try(:iso8601)
+
 = render 'form', order: @order, button_text: "Update"
-= link_to 'Show', @order
-|
-= link_to 'Back', orders_path
+
+%br
+= link_to 'Show', @order, class: "btn btn-info"
+= link_to 'Back', orders_path, class: "btn btn-secondary"

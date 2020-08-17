@@ -1,28 +1,38 @@
-%p#notice= notice
 %h1 Orders
-%table
+
+- if notice
+  .alert.alert-success.my-3
+    = notice
+
+%table.table.table-hover.table-sm.table-responsive-lg.mb-3
   %thead
     %tr
-      %th Amount cents
+      %th Number
+      %th Email address
       %th First name
       %th Last name
+      %th Price
       %th Country
-      %th Email address
-      %th Number
-      %th Permalink
-      %th{:colspan => "3"}
+      %th Paid
+      %th Actions
   %tbody
     - @orders.each do |order|
       %tr
-        %td= order.amount_cents
+        %td= order.number
+        %td= order.email_address
         %td= order.first_name
         %td= order.last_name
+        %td= order.price.format
         %td= order.country
-        %td= order.email_address
-        %td= order.number
-        %td= order.permalink
-        %td= link_to 'Show', order
-        %td= link_to 'Edit', edit_order_path(order)
-        %td= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Order', new_order_path
+        %td
+          - if order.paid_at
+            = mi.attach_money.css_class("text-success").html(title: order.paid_at)
+          - else
+            = mi.money_off.css_class("text-danger")
+        %td
+          = link_to mi.link.css_class("text-primary mx-1"), order_permalink_path(permalink: order.permalink), title: "Permalink"
+          = link_to mi.visibility.css_class("text-info mx-1"), order, title: "View"
+          = link_to mi.create.css_class("text-warning mx-1"), edit_order_path(order), title: "Edit"
+          = link_to mi.delete.css_class("text-danger mx-1"), order, method: :delete, data: { confirm: "Are you sure?" }, title: "Delete"
+
+= link_to "New Order", new_order_path, class: "btn btn-secondary"

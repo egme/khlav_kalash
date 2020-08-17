@@ -1,12 +1,18 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title KhlavKalash
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{name:"viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"}
+    %title Khlav Kalash
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
     = yield(:head)
   %body
-    = yield
+    .container.pb-3
+      -# %nav.navbar.navbar-light
+      -#   %a.navbar-brand{ href: root_url }
+      -#     %img.d-inline-block.align-bottom{ src: "/logo.png", width: "30", height: "30" }
+      -#     Khlav Kalash, no Pizza!
+      = yield

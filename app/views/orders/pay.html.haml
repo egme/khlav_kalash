@@ -10,32 +10,45 @@
   = javascript_include_tag "payment"
 
 %h1 Payment
-%p#notice= notice
-%p
-  %strong Price:
-  = @order.price.format
-%p
-  %strong First name:
-  = @order.first_name
-%p
-  %strong Last name:
-  = @order.last_name
-%p
-  %strong Country:
-  = @order.country
-%p
-  %strong Email address:
-  = @order.email_address
-%p
-  %strong Number:
-  = @order.number
-%p
-  %strong Permalink:
-  = @order.permalink
 
-.payment
-  #card-element
-  #card-errors
-  %button#pay
-    Pay
-    = @order.price.format
+- if notice
+  .alert.alert-success.my-3
+    = notice
+
+.card.mb-3
+  .card-header
+    Order Info
+  .card-body
+    %p
+      %strong Email address:
+      = @order.email_address
+    %p
+      %strong First name:
+      = @order.first_name
+    %p
+      %strong Last name:
+      = @order.last_name
+    %p
+      %strong Country:
+      = ISO3166::Country[@order.country].to_s
+    %p
+      %strong Price:
+      = @order.price.format
+    %p
+      %strong Number:
+      = @order.number
+    %p
+      %strong Permalink:
+      = @order.permalink
+
+.card.mb-3
+  .card-header
+    Card Details
+  .card-body
+    .payment
+      #card-element
+      #card-errors.text-danger.mt-1
+
+%button#pay.btn.btn-danger
+  Pay
+  = @order.price.format

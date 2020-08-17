@@ -1,40 +1,50 @@
 = form_with(model: order, local: true) do |form|
   - if order.errors.any?
-    #error_explanation
-      %h2
+    #error_explanation.alert.alert-danger.my-3
+      %h5.alert-heading
         Uh! Oh! Order cannot be saved due to the following
         = "error".pluralize(order.errors.count) + ":"
       %ul
         - order.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = form.label :first_name
-    = form.text_field :first_name
-  .field
-    = form.label :last_name
-    = form.text_field :last_name
-  .field
-    = form.label :street_line_1
-    = form.text_field :street_line_1
-  .field
-    = form.label :street_line_2
-    = form.text_field :street_line_2
-  .field
-    = form.label :postal_code
-    = form.text_field :postal_code
-  .field
-    = form.label :city
-    = form.text_field :city
-  .field
-    = form.label :region
-    = form.text_field :region
-  .field
-    = form.label :country
-    = form.country_select :country
-  .field
-    = form.label :email_address
-    = form.text_field :email_address
+  .card.mb-3
+    .card-header
+      Personal Info
+    .card-body
+      .form-row
+        .form-group.col-md-4
+          = form.label :email_address
+          = form.text_field :email_address, class: "form-control #{ order.errors[:email_address].any? ? " is-invalid" : "" }"
+        .form-group.col-md-4
+          = form.label :first_name
+          = form.text_field :first_name, class: "form-control #{ order.errors[:first_name].any? ? " is-invalid" : "" }"
+        .form-group.col-md-4
+          = form.label :last_name
+          = form.text_field :last_name, class: "form-control #{ order.errors[:last_name].any? ? " is-invalid" : "" }"
+  .card.mb-3
+    .card-header
+      Address
+    .card-body
+      .form-group
+        = form.label :street_line_1
+        = form.text_field :street_line_1, class: "form-control #{ order.errors[:street_line_1].any? ? " is-invalid" : "" }"
+      .form-group
+        = form.label :street_line_2
+        = form.text_field :street_line_2, class: "form-control #{ order.errors[:street_line_2].any? ? " is-invalid" : "" }"
+      .form-row
+        .form-group.col-md-4
+          = form.label :city
+          = form.text_field :city, class: "form-control #{ order.errors[:city].any? ? " is-invalid" : "" }"
+        .form-group.col-md-4
+          = form.label :region
+          = form.text_field :region, class: "form-control #{ order.errors[:region].any? ? " is-invalid" : "" }"
+        .form-group.col-md-4
+          = form.label :postal_code
+          = form.text_field :postal_code, class: "form-control #{ order.errors[:postal_code].any? ? " is-invalid" : "" }"
+      .form-group
+        = form.label :country
+        = form.country_select :country, { include_blank: "Select a country" }, { class: "form-control #{ order.errors[:country].any? ? " is-invalid" : "" }" }
 
   .actions
-    = form.submit @button_text
+    = form.submit @button_text, class: "btn btn-danger"

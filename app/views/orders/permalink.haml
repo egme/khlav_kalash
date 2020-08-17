@@ -1,41 +1,50 @@
-%p#notice= notice
-%p
-  %strong Number:
+%h1
+  Order
   = @order.number
-%p
-  %strong Amount paid:
-  = @order.price.format
-%p
-  %strong Paid at:
-  = @order.paid_at.utc.iso8601
-%p
-  %strong First name:
-  = @order.first_name
-%p
-  %strong Last name:
-  = @order.last_name
-%p
-  %strong Street Line 1:
-  = @order.street_line_1
-%p
-  %strong Street Line 2:
-  = @order.street_line_2
-%p
-  %strong Postal Code/Zip:
-  = @order.postal_code
-%p
-  %strong City:
-  = @order.city
-%p
-  %strong Region:
-  = @order.region
-%p
-  %strong Country:
-  = @order.country
-%p
-  %strong Email address:
-  = @order.email_address
 
-= link_to 'New order', root_path
+- if notice
+  .alert.alert-success.my-3
+    = notice
+
+.card.mb-3
+  .card-header
+    Order Info
+
+  .card-body
+    %p
+      %strong Email address:
+      = @order.email_address
+    %p
+      %strong First name:
+      = @order.first_name
+    %p
+      %strong Last name:
+      = @order.last_name
+    %p
+      %strong Amount paid:
+      = @order.price.format
+    %p
+      %strong Paid at:
+      = @order.paid_at.utc.iso8601
+    %p
+      %strong Street Line 1:
+      = @order.street_line_1
+    %p
+      %strong Street Line 2:
+      = @order.street_line_2
+    %p
+      %strong City:
+      = @order.city
+    %p
+      %strong Region:
+      = @order.region
+    %p
+      %strong Postal Code/Zip:
+      = @order.postal_code
+    %p
+      %strong Country:
+      = ISO3166::Country[@order.country].to_s
+
+= link_to 'New order', root_path, class: "btn btn-secondary"
 
 
