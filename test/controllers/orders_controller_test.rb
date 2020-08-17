@@ -75,7 +75,6 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
             assert_includes response.body, field
           end
       end
-
     end
 
     describe "PATCH/PUT /orders/:id" do
@@ -388,9 +387,10 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
         end
 
         it "renders order details" do
-          %i[number first_name last_name street_line_1 street_line_2 postal_code city country email_address].each do |field|
+          %i[number first_name last_name street_line_1 street_line_2 postal_code city email_address].each do |field|
             assert_includes response.body, CGI.escapeHTML(order[field])
           end
+          assert_includes response.body, CGI.escapeHTML(ISO3166::Country[order.country].to_s)
         end
 
         it "renders price" do

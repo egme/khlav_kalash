@@ -1,5 +1,24 @@
 %h1 New Order
 
-%img(src="product.jpg" style="width:30%")
+.media.mb-3
+  %img(src="/product.jpg" class="mr-3" style="max-width:300px")
+  .media-body
+    %h5.mt-0
+      Khlav Kalash
+    %hr
+    Fresh Khlav Kalash.
+    %br
+    Get your Khlav Kalash.
+    %br
+    No Pizza, only Khlav Kalash.
+    %br
+    No bowl. Stick. Stick.
+    %br
+    THAT'S JUST AWFUL!
+    %br
+    %br
+    For only
+    %span.badge.badge-warning
+      = @order.price.format
 
 = render 'form', order: @order, button_text: "Order now!"
